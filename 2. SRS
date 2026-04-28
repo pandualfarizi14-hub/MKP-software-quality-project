@@ -1,1 +1,246 @@
+# SOFTWARE REQUIREMENT SPECIFICATION (SRS)
+## Aplikasi Manajemen Membership Gym
 
+---
+
+# I. PENDAHULUAN
+
+## 1.1 Tujuan Penulisan Dokumen
+
+Dokumen ini berisi penjelasan mengenai Spesifikasi Kebutuhan Perangkat Lunak (SKPL) atau Software Requirement Specification (SRS) untuk aplikasi manajemen membership gym.
+
+Dokumen ini dibuat sebagai acuan dalam proses pengembangan sistem agar kebutuhan perangkat lunak dapat dirancang secara terstruktur dan mengurangi kesalahan dalam proses pengembangan aplikasi.
+
+Aplikasi ini bertujuan membantu pengelolaan data member gym, pembayaran membership, jadwal latihan, dan laporan administrasi gym secara digital.
+
+---
+
+## 1.2 Lingkup Masalah
+
+Aplikasi manajemen membership gym memiliki dua jenis pengguna yaitu admin dan member.
+
+### Member dapat:
+- Registrasi akun
+- Login
+- Melihat jadwal latihan
+- Melihat status membership
+- Melakukan pembayaran
+- Melakukan perpanjangan membership
+
+### Admin dapat:
+- Mengelola member
+- Mengelola jadwal latihan
+- Mengelola pembayaran
+- Mengelola laporan
+
+---
+
+## 1.3 Definisi dan Istilah
+
+| Istilah | Penjelasan |
+|---|---|
+| SKPL/SRS | Spesifikasi kebutuhan perangkat lunak |
+| CRUD | Create, Read, Update, Delete |
+| Use Case Diagram | Diagram interaksi aktor dengan sistem |
+| Activity Diagram | Diagram alur aktivitas sistem |
+| Sequence Diagram | Diagram komunikasi antar objek |
+| Member | Pengguna aplikasi gym |
+| Admin | Pengelola sistem gym |
+
+---
+
+## 1.4 Referensi
+
+- Pressman, Software Engineering
+- Sommerville, Software Engineering
+- Panduan UML
+- Dokumentasi MySQL
+- GitHub Documentation
+
+---
+
+# II. DESKRIPSI GLOBAL SISTEM
+
+## 2.1 Scope Sistem
+
+### Sistem Member
+- Registrasi member
+- Login member
+- Pembayaran membership
+- Lihat jadwal latihan
+- Lihat status membership
+- Perpanjang membership
+
+### Sistem Admin
+- Login admin
+- Kelola member
+- Kelola jadwal
+- Kelola pembayaran
+- Cetak laporan
+
+---
+
+## 2.2 User Characteristic
+
+| User | Deskripsi |
+|---|---|
+| Admin | Mengelola seluruh data sistem |
+| Member | Menggunakan layanan gym melalui aplikasi |
+
+---
+
+## 2.3 Functional Requirements
+
+| No | Functional Requirements |
+|---|---|
+| 1 | User memilih menu registrasi |
+| 2 | Sistem menampilkan form registrasi |
+| 3 | User menginput data diri |
+| 4 | User memilih create akun |
+| 5 | Sistem mengirim verifikasi |
+| 6 | User memasukkan kode verifikasi |
+| 7 | Sistem menyimpan data user |
+| 8 | User memilih cancel |
+| 9 | Sistem menampilkan halaman utama |
+
+---
+
+# III. DESAIN INTERFACE
+
+## 3.1 Interface Login Member
+
+Komponen:
+- Input email
+- Input password
+- Tombol login
+- Tombol daftar
+
+---
+
+## 3.2 Interface Dashboard Member
+
+Komponen:
+- Jadwal kelas
+- Kartu member
+- Perpanjang membership
+- Logout
+
+---
+
+## 3.3 Interface Dashboard Admin
+
+Komponen:
+- Kelola member
+- Kelola jadwal
+- Laporan
+- Logout
+
+---
+
+# IV. USE CASE
+
+## Aktor Sistem
+
+### Member
+- Registrasi
+- Login
+- Pembayaran
+- Lihat jadwal
+- Perpanjang membership
+
+### Admin
+- Login
+- Kelola member
+- Kelola jadwal
+- Cetak laporan
+
+---
+
+# V. DATABASE SISTEM
+
+## Tabel t_member
+
+| Field | Tipe |
+|---|---|
+| id_member | INT |
+| nama_lengkap | VARCHAR(150) |
+| email | VARCHAR(100) |
+| password | VARCHAR(255) |
+| telepon | VARCHAR(20) |
+| status | ENUM |
+
+---
+
+## Tabel t_admin
+
+| Field | Tipe |
+|---|---|
+| id_admin | INT |
+| username | VARCHAR(100) |
+| password | VARCHAR(255) |
+
+---
+
+## Tabel t_jadwal
+
+| Field | Tipe |
+|---|---|
+| id_jadwal | INT |
+| hari | VARCHAR(20) |
+| jenis_latihan | VARCHAR(100) |
+| waktu_mulai | TIME |
+| waktu_selesai | TIME |
+
+---
+
+## Tabel t_pembayaran
+
+| Field | Tipe |
+|---|---|
+| id_pembayaran | INT |
+| member_id | INT |
+| jumlah_bayar | DECIMAL |
+| tgl_bayar | DATETIME |
+| keterangan | VARCHAR(255) |
+
+---
+
+# VI. SOFTWARE TESTING
+
+## 6.1 Functional Testing
+
+| Fitur | Hasil |
+|---|---|
+| Login | Valid |
+| Register | Valid |
+| Jadwal | Valid |
+| Membership | Valid |
+
+---
+
+## 6.2 Black Box Testing
+
+| Input | Expected Output | Status |
+|---|---|---|
+| Email benar | Login berhasil | Valid |
+| Password salah | Error tampil | Valid |
+| Data kosong | Warning tampil | Valid |
+
+---
+
+## 6.3 Bug Report
+
+### Bug 1
+Masalah:
+Login gagal saat password kosong
+
+Status:
+Fixed
+
+---
+
+# VII. KESIMPULAN
+
+Aplikasi manajemen membership gym dirancang untuk membantu proses pengelolaan membership, pembayaran, jadwal latihan, dan laporan gym secara digital dan terintegrasi.
+
+Dengan adanya dokumentasi SRS ini, proses pengembangan software menjadi lebih terstruktur dan memudahkan proses Software Quality Assurance (SQA).
