@@ -21,7 +21,7 @@ Project ini merupakan implementasi Software Quality Assurance (SQA) untuk aplika
 - Black Box Testing
 
 ## Struktur Dokumen
-- Software Desigin
+- Software Design
 - SRS
 - Software Test Plan
 - Software User Documentation
