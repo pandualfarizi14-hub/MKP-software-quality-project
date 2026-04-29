@@ -1,5 +1,3 @@
-# MKP-software-quality-project
-
 # Aplikasi Manajemen Membership Gym
 
 ## Deskripsi
