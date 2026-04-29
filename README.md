@@ -21,10 +21,10 @@ Project ini merupakan implementasi Software Quality Assurance (SQA) untuk aplika
 - Black Box Testing
 
 ## Struktur Dokumen
-- SKPL
-- UML
+- Software Desigin
 - SRS
-- Test Plan
+- Software Test Plan
+- Software User Documentation
 
 ## Anggota Kelompok
 1. Ferdiansyah
