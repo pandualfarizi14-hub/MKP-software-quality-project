@@ -1,7 +1,7 @@
 # BLACK BOX TESTING (Pengujian Fungsional)
 Black box testing berfokus pada validasi fungsi sistem berdasarkan input dan output, tanpa mengetahui struktur internal program.
 
-Teknik-teknik Black Box Testing
+### Teknik-teknik Black Box Testing
 
 1. Equivalence Partitioning (EP)
 
