@@ -241,7 +241,7 @@ CFG dan Graph Matrix berhasil menunjukkan hubungan antar node pada fitur kelola 
 
 ---
 
-## Independent Path – Cyclomatic Complexity
+## 5. Independent Path – Cyclomatic Complexity
 
 ### Fitur: Jadwal Gym (`jadwal.php`)
 
