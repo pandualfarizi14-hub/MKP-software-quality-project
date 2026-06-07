@@ -241,19 +241,16 @@ CFG dan Graph Matrix berhasil menunjukkan hubungan antar node pada fitur kelola 
 
 ---
 
-# 5. Cyclomatic Complexity
+## Independent Path – Cyclomatic Complexity
 
-### Fitur: Jadwal Gym
+### Fitur: Jadwal Gym (`jadwal.php`)
 
-**File:** `jadwal.php`
+## Potongan Kode Program
 
-## Potongan Kode
-
-```php
+```php id="uk0gnx"
 if(isset($_POST['hari'])){
 
-$hari =
-$_POST['hari'];
+$hari = $_POST['hari'];
 
 if($hari == "senin"){
 
@@ -270,36 +267,149 @@ echo "Tidak ada jadwal";
 }
 ```
 
-## Cyclomatic Complexity
+## Node Program
 
-Rumus:
+1 = Start
+2 = Input Hari
+3 = Cek Input Hari (`isset`)
+4 = Hari = Senin?
+5 = Tampilkan "Latihan Cardio"
+6 = Hari = Selasa?
+7 = Tampilkan "Latihan Upper Body"
+8 = Tampilkan "Tidak ada jadwal"
+9 = End
 
-V(G) = E − N + 2P
+---
 
-E = 10
-N = 9
-P = 1
+### Path 1 – Jadwal Hari Senin
 
-Hasil:
+#### Jalur Node
 
-```text
-V(G)=10−9+2(1)=3
+1 → 2 → 3 → 4 → 5 → 9
+
+#### Kondisi Percabangan
+
+* Node 3 = TRUE
+  (input hari tersedia)
+
+* Node 4 = TRUE
+  (`hari = senin`)
+
+#### Skenario Pengujian
+
+| Input | Nilai |
+| ----- | ----- |
+| Hari  | senin |
+
+#### Expected Result
+
+Sistem menampilkan:
+
+```text id="ldo3fr"
+Latihan Cardio
 ```
 
-### Independent Path
+#### Baris Kode yang Dilewati
 
-#### Path 1
+Baris 1–7
 
-Jadwal Senin
+---
 
-#### Path 2
+### Path 2 – Jadwal Hari Selasa
 
-Jadwal Selasa
+#### Jalur Node
 
-#### Path 3
+1 → 2 → 3 → 4 → 6 → 7 → 9
 
-Hari tidak tersedia
+#### Kondisi Percabangan
 
-## Kesimpulan
+* Node 3 = TRUE
+  (input hari tersedia)
 
-Fitur jadwal gym memiliki kompleksitas program sebesar 3.
+* Node 4 = FALSE
+  (`hari ≠ senin`)
+
+* Node 6 = TRUE
+  (`hari = selasa`)
+
+#### Skenario Pengujian
+
+| Input | Nilai  |
+| ----- | ------ |
+| Hari  | selasa |
+
+#### Expected Result
+
+Sistem menampilkan:
+
+```text id="jrr3uo"
+Latihan Upper Body
+```
+
+#### Baris Kode yang Dilewati
+
+Baris 1–11
+
+---
+
+### Path 3 – Hari Tidak Tersedia
+
+#### Jalur Node
+
+1 → 2 → 3 → 4 → 6 → 8 → 9
+
+#### Kondisi Percabangan
+
+* Node 3 = TRUE
+  (input hari tersedia)
+
+* Node 4 = FALSE
+  (`hari ≠ senin`)
+
+* Node 6 = FALSE
+  (`hari ≠ selasa`)
+
+#### Skenario Pengujian
+
+| Input | Nilai  |
+| ----- | ------ |
+| Hari  | minggu |
+
+#### Expected Result
+
+Sistem menampilkan:
+
+```text id="qjglwq"
+Tidak ada jadwal
+```
+
+#### Baris Kode yang Dilewati
+
+Baris 1–15
+
+---
+
+### Path 4 – Input Tidak Dimasukkan
+
+#### Jalur Node
+
+1 → 2 → 3 → 9
+
+#### Kondisi Percabangan
+
+* Node 3 = FALSE
+  (`hari` tidak diinput)
+
+#### Skenario Pengujian
+
+| Input | Nilai  |
+| ----- | ------ |
+| Hari  | kosong |
+
+#### Expected Result
+
+Sistem tidak menampilkan jadwal.
+
+#### Baris Kode yang Dilewati
+
+Baris 1–2
