@@ -2,29 +2,33 @@
 
 ## Deskripsi
 
-Dokumen ini berisi implementasi **White Box Testing** pada aplikasi web **Gym App** menggunakan **5 teknik pengujian** dengan fitur yang berbeda-beda.
+Dokumen ini berisi implementasi **White Box Testing** pada aplikasi web **Gym App** berdasarkan model pengujian white box:
+
+* Desk Checking
+* Code Walkthrough
+* Formal Inspection
+* Basic Path Testing
+* Loop Testing
 
 ---
 
-# 1. Statement Coverage
+# 1. Desk Checking
 
-### Fitur: Login Member
+## Fitur: Login Member
 
 **File:** `login.php`
 
-## Pengertian
+### Pengertian
 
-Statement Coverage bertujuan memastikan seluruh statement atau baris kode dieksekusi minimal satu kali.
+Desk Checking merupakan teknik white box testing dengan cara memeriksa logika program secara manual tanpa menjalankan aplikasi.
 
-## Potongan Kode
+### Potongan Kode
 
 ```php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 $email = $_POST['email'];
 $password = $_POST['password'];
-
-$result = mysqli_query($koneksi,$query);
 
 if ($row = mysqli_fetch_assoc($result)) {
 
@@ -40,376 +44,270 @@ header(
 dashboard.php");
 
 } else {
+
 $error =
 "Akun belum aktif";
 }
 
 } else {
+
 $error =
 "Password salah";
 }
 
 } else {
+
 $error =
 "Email salah";
 }
 }
 ```
 
-## Skenario Pengujian
+### Proses Desk Checking
 
-| No | Input          | Expected Result |
-| -- | -------------- | --------------- |
-| 1  | Login benar    | Berhasil masuk  |
-| 2  | Password salah | Error           |
-| 3  | Email salah    | Error           |
-| 4  | Akun nonaktif  | Error           |
+| Langkah | Pemeriksaan                | Hasil |
+| ------- | -------------------------- | ----- |
+| 1       | Request POST diterima      | Valid |
+| 2       | Email diambil dari form    | Valid |
+| 3       | Password diambil dari form | Valid |
+| 4       | Query mencari email        | Valid |
+| 5       | Password diverifikasi      | Valid |
+| 6       | Status akun dicek          | Valid |
+| 7       | Redirect dashboard         | Valid |
 
-## Kesimpulan
+### Kemungkinan Error
 
-Semua statement berhasil dieksekusi minimal satu kali.
+| Kondisi          | Output        |
+| ---------------- | ------------- |
+| Email salah      | Pesan error   |
+| Password salah   | Pesan error   |
+| Akun belum aktif | Akses ditolak |
+
+### Kesimpulan
+
+Alur login berjalan sesuai logika program.
 
 ---
 
-# 2. Branch Coverage
+# 2. Code Walkthrough
 
-### Fitur: Registrasi Member
+## Fitur: Registrasi Member
 
 **File:** `daftar.php`
 
-## Pengertian
+### Pengertian
 
-Branch Coverage digunakan untuk menguji semua percabangan TRUE dan FALSE.
+Code Walkthrough merupakan teknik pengujian dengan menelusuri kode program langkah demi langkah.
 
-## Percabangan yang Diuji
-
-### Branch 1
+### Potongan Kode
 
 ```php
-if(isset($_POST['submit']))
-```
+if(isset($_POST['submit'])){
 
-TRUE → proses daftar
-FALSE → tampil form
+$password =
+$_POST['password'];
 
-### Branch 2
+$confirm_password =
+$_POST['confirm_password'];
 
-```php
-if($password == $confirm_password)
-```
+if($password ==
+$confirm_password){
 
-TRUE → lanjut simpan akun
-FALSE → tampil error
+if($cek_email > 0){
 
-### Branch 3
-
-```php
-if($cek_email > 0)
-```
-
-TRUE → email sudah terdaftar
-FALSE → akun baru disimpan
-
-## Hasil Pengujian
-
-Semua branch TRUE dan FALSE berhasil diuji.
-
-## Kesimpulan
-
-Branch Coverage berhasil diterapkan pada fitur registrasi member.
-
----
-
-# 3. Basis Path Testing
-
-### Fitur: Login Admin
-
-**File:** `admin/login.php`
-
-## Node Program
-
-1 = Start
-2 = Input username & password
-3 = Query admin database
-4 = Username ditemukan?
-5 = Password benar?
-6 = Login berhasil
-7 = Login gagal
-8 = End
-
-## Cyclomatic Complexity
-
-Rumus:
-
-V(G) = E − N + 2P
-
-E = 9
-N = 8
-P = 1
-
-Hasil:
-
-```text
-V(G)=9−8+2(1)=3
-```
-
-Terdapat **3 independent path**.
-
-### Independent Path
-
-#### Path 1
-
-1 → 2 → 3 → 4 → 5 → 6 → 8
-
-#### Path 2
-
-1 → 2 → 3 → 4 → 7 → 8
-
-#### Path 3
-
-1 → 2 → 3 → 7 → 8
-
-## Kesimpulan
-
-Fitur login admin memiliki 3 jalur independen.
-
----
-
-# 4. Control Flow Graph (CFG) & Graph Matrix
-
-### Fitur: Kelola Member Admin
-
-**File:** `admin/kelola_member.php`
-
-## Potongan Kode
-
-```php
-if(isset($_GET['hapus'])){
-
-$id = $_GET['hapus'];
-
-$query =
-mysqli_query(
-$koneksi,
-"DELETE FROM
-members
-WHERE id='$id'");
-
-if($query){
-
-header(
-"Location:
-kelola_member.php");
+$error =
+"Email sudah ada";
 
 }else{
 
-$error =
-"Gagal menghapus";
+mysqli_query(
+$koneksi,
+$query_insert);
+}
 }
 }
 ```
 
-## Node Program
+### Langkah Walkthrough
+
+1. User mengisi form registrasi
+2. Sistem mengecek tombol submit
+3. Sistem mengambil password dan confirm password
+4. Sistem membandingkan password
+5. Sistem mengecek email sudah ada atau belum
+6. Sistem menyimpan akun baru
+
+### Hasil Walkthrough
+
+| Kondisi              | Hasil               |
+| -------------------- | ------------------- |
+| Password cocok       | Registrasi berhasil |
+| Password tidak cocok | Error               |
+| Email sudah ada      | Error               |
+
+### Kesimpulan
+
+Alur registrasi berhasil ditelusuri dan berjalan sesuai logika program.
+
+---
+
+# 3. Formal Inspection
+
+## Fitur: Login Admin
+
+**File:** `admin/login.php`
+
+### Pengertian
+
+Formal Inspection merupakan teknik pengujian dengan melakukan review kode secara sistematis untuk menemukan kelemahan.
+
+### Potongan Kode
+
+```php
+$query =
+mysqli_query(
+$koneksi,
+"SELECT * FROM admin
+WHERE username='$username'");
+```
+
+### Hasil Pemeriksaan
+
+| Bagian Kode    | Temuan           | Risiko          | Solusi             |
+| -------------- | ---------------- | --------------- | ------------------ |
+| Query Login    | Query langsung   | SQL Injection   | Prepared Statement |
+| Password       | Tidak hashing    | Password bocor  | `password_hash()`  |
+| Session        | Belum divalidasi | Bypass login    | Session validation |
+| Error Handling | Error umum       | Sulit debugging | Tambah log         |
+
+### Kesimpulan
+
+Login admin masih memerlukan peningkatan keamanan.
+
+---
+
+# 4. Basic Path Testing
+
+## Fitur: Kelola Member
+
+**File:** `admin/kelola_member.php`
+
+### Node Program
 
 | Node | Keterangan          |
 | ---- | ------------------- |
 | 1    | Start               |
 | 2    | Cek parameter hapus |
-| 3    | Ambil ID            |
+| 3    | Ambil ID member     |
 | 4    | Query delete        |
 | 5    | Query berhasil      |
 | 6    | Redirect            |
 | 7    | Error               |
 | 8    | End                 |
 
-## Graph Matrix
+### Control Flow Graph
 
-| Node | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
-| ---- | - | - | - | - | - | - | - | - |
-| 1    | - | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
-| 2    | 0 | - | 1 | 0 | 0 | 0 | 0 | 1 |
-| 3    | 0 | 0 | - | 1 | 0 | 0 | 0 | 0 |
-| 4    | 0 | 0 | 0 | - | 1 | 0 | 0 | 0 |
-| 5    | 0 | 0 | 0 | 0 | - | 1 | 1 | 0 |
-| 6    | 0 | 0 | 0 | 0 | 0 | - | 0 | 1 |
-| 7    | 0 | 0 | 0 | 0 | 0 | 0 | - | 1 |
-| 8    | 0 | 0 | 0 | 0 | 0 | 0 | 0 | - |
+```text
+1 → 2
 
-## Kesimpulan
+2(TRUE) → 3
+2(FALSE) → 8
 
-CFG dan Graph Matrix berhasil menunjukkan hubungan antar node pada fitur kelola member.
+3 → 4
+
+4 → 5
+
+5(TRUE) → 6
+5(FALSE) → 7
+
+6 → 8
+7 → 8
+```
+
+### Cyclomatic Complexity
+
+```text
+V(G) = E − N + 2P
+
+E = 9
+N = 8
+P = 1
+
+V(G)=9−8+2(1)=3
+```
+
+### Independent Path
+
+#### Path 1 – Hapus Berhasil
+
+```text
+1 → 2 → 3 → 4 → 5 → 6 → 8
+```
+
+#### Path 2 – Hapus Gagal
+
+```text
+1 → 2 → 3 → 4 → 5 → 7 → 8
+```
+
+#### Path 3 – Parameter Tidak Ada
+
+```text
+1 → 2 → 8
+```
+
+### Kesimpulan
+
+Fitur kelola member memiliki 3 jalur independen.
 
 ---
 
-## 5. Independent Path – Cyclomatic Complexity
+# 5. Loop Testing
 
-### Fitur: Jadwal Gym (`jadwal.php`)
+## Fitur: Jadwal Gym
 
-## Potongan Kode Program
+**File:** `jadwal.php`
 
-```php id="uk0gnx"
-if(isset($_POST['hari'])){
+### Pengertian
 
-$hari = $_POST['hari'];
+Loop Testing digunakan untuk menguji struktur perulangan pada program.
 
-if($hari == "senin"){
+### Potongan Kode
 
-echo "Latihan Cardio";
-
-}elseif($hari == "selasa"){
-
-echo "Latihan Upper Body";
-
-}else{
-
-echo "Tidak ada jadwal";
+```php
+while(
+$row =
+mysqli_fetch_assoc(
+$result))
+{
+echo
+$row['jadwal'];
 }
-}
 ```
 
-## Node Program
+### Pengujian Loop
 
-1 = Start
-2 = Input Hari
-3 = Cek Input Hari (`isset`)
-4 = Hari = Senin?
-5 = Tampilkan "Latihan Cardio"
-6 = Hari = Selasa?
-7 = Tampilkan "Latihan Upper Body"
-8 = Tampilkan "Tidak ada jadwal"
-9 = End
+| No | Kondisi Loop | Hasil               |
+| -- | ------------ | ------------------- |
+| 1  | 0 data       | Tidak tampil jadwal |
+| 2  | 1 data       | 1 jadwal tampil     |
+| 3  | 5 data       | Semua tampil        |
+| 4  | Banyak data  | Sistem normal       |
 
----
+### Iterasi Loop
 
-### Path 1 – Jadwal Hari Senin
+#### Iterasi 0
 
-#### Jalur Node
+Loop tidak berjalan.
 
-1 → 2 → 3 → 4 → 5 → 9
+#### Iterasi 1
 
-#### Kondisi Percabangan
+Loop berjalan satu kali.
 
-* Node 3 = TRUE
-  (input hari tersedia)
+#### Iterasi Banyak
 
-* Node 4 = TRUE
-  (`hari = senin`)
+Loop berjalan sesuai jumlah data.
 
-#### Skenario Pengujian
+### Kesimpulan
 
-| Input | Nilai |
-| ----- | ----- |
-| Hari  | senin |
-
-#### Expected Result
-
-Sistem menampilkan:
-
-```text id="ldo3fr"
-Latihan Cardio
-```
-
-#### Baris Kode yang Dilewati
-
-Baris 1–7
-
----
-
-### Path 2 – Jadwal Hari Selasa
-
-#### Jalur Node
-
-1 → 2 → 3 → 4 → 6 → 7 → 9
-
-#### Kondisi Percabangan
-
-* Node 3 = TRUE
-  (input hari tersedia)
-
-* Node 4 = FALSE
-  (`hari ≠ senin`)
-
-* Node 6 = TRUE
-  (`hari = selasa`)
-
-#### Skenario Pengujian
-
-| Input | Nilai  |
-| ----- | ------ |
-| Hari  | selasa |
-
-#### Expected Result
-
-Sistem menampilkan:
-
-```text id="jrr3uo"
-Latihan Upper Body
-```
-
-#### Baris Kode yang Dilewati
-
-Baris 1–11
-
----
-
-### Path 3 – Hari Tidak Tersedia
-
-#### Jalur Node
-
-1 → 2 → 3 → 4 → 6 → 8 → 9
-
-#### Kondisi Percabangan
-
-* Node 3 = TRUE
-  (input hari tersedia)
-
-* Node 4 = FALSE
-  (`hari ≠ senin`)
-
-* Node 6 = FALSE
-  (`hari ≠ selasa`)
-
-#### Skenario Pengujian
-
-| Input | Nilai  |
-| ----- | ------ |
-| Hari  | minggu |
-
-#### Expected Result
-
-Sistem menampilkan:
-
-```text id="qjglwq"
-Tidak ada jadwal
-```
-
-#### Baris Kode yang Dilewati
-
-Baris 1–15
-
----
-
-### Path 4 – Input Tidak Dimasukkan
-
-#### Jalur Node
-
-1 → 2 → 3 → 9
-
-#### Kondisi Percabangan
-
-* Node 3 = FALSE
-  (`hari` tidak diinput)
-
-#### Skenario Pengujian
-
-| Input | Nilai  |
-| ----- | ------ |
-| Hari  | kosong |
-
-#### Expected Result
-
-Sistem tidak menampilkan jadwal.
-
-#### Baris Kode yang Dilewati
-
-Baris 1–2
+Perulangan berjalan sesuai jumlah data yang tersedia.
