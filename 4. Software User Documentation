@@ -1,1 +1,209 @@
+# Software User Documentation
+
+## Gym App
+
+## 1. Pendahuluan
+
+### 1.1 Deskripsi Aplikasi
+
+Gym App merupakan aplikasi berbasis web yang digunakan untuk membantu pengelolaan data member gym, proses registrasi, login, serta melihat jadwal latihan.
+
+### 1.2 Tujuan Dokumentasi
+
+Dokumentasi ini dibuat untuk membantu pengguna memahami cara menggunakan seluruh fitur yang tersedia pada Gym App.
+
+---
+
+# 2. Kebutuhan Sistem
+
+### Perangkat Keras
+
+* Laptop atau Komputer
+* Smartphone (opsional)
+
+### Perangkat Lunak
+
+* Web Browser (Google Chrome, Mozilla Firefox, Microsoft Edge)
+* XAMPP (Apache dan MySQL)
+* PHP 8.x
+* MySQL Database
+
+---
+
+# 3. Cara Menjalankan Aplikasi
+
+### Langkah 1
+
+Jalankan Apache dan MySQL melalui XAMPP.
+
+### Langkah 2
+
+Simpan project Gym App pada folder:
+
+```text
+htdocs/gym_app
+```
+
+### Langkah 3
+
+Import database Gym App melalui phpMyAdmin.
+
+### Langkah 4
+
+Buka browser dan akses:
+
+```text
+http://localhost/gym_app
+```
+
+---
+
+# 4. Panduan Login Member
+
+### Langkah Penggunaan
+
+1. Buka halaman Login.
+2. Masukkan email.
+3. Masukkan password.
+4. Klik tombol Login.
+
+### Hasil
+
+Apabila data benar, pengguna akan diarahkan ke halaman Dashboard Member.
+
+### Tampilan
+
+* Form Email
+* Form Password
+* Tombol Login
+
+---
+
+# 5. Panduan Registrasi Member
+
+### Langkah Penggunaan
+
+1. Buka halaman Registrasi.
+2. Isi data diri.
+3. Masukkan email.
+4. Masukkan password.
+5. Konfirmasi password.
+6. Klik Daftar.
+
+### Hasil
+
+Akun member berhasil dibuat dan dapat digunakan untuk login.
+
+---
+
+# 6. Panduan Login Admin
+
+### Langkah Penggunaan
+
+1. Buka halaman Login Admin.
+2. Masukkan username.
+3. Masukkan password.
+4. Klik Login.
+
+### Hasil
+
+Admin akan diarahkan ke Dashboard Admin.
+
+---
+
+# 7. Panduan Kelola Member
+
+## Menambah Data Member
+
+1. Masuk sebagai Admin.
+2. Buka menu Kelola Member.
+3. Klik Tambah Member.
+4. Isi data member.
+5. Klik Simpan.
+
+## Mengubah Data Member
+
+1. Pilih data member.
+2. Klik Edit.
+3. Ubah data yang diperlukan.
+4. Klik Update.
+
+## Menghapus Data Member
+
+1. Pilih data member.
+2. Klik Hapus.
+3. Konfirmasi penghapusan.
+
+---
+
+# 8. Panduan Melihat Jadwal Gym
+
+### Langkah Penggunaan
+
+1. Buka menu Jadwal Gym.
+2. Pilih hari latihan.
+3. Sistem akan menampilkan jadwal yang tersedia.
+
+### Hasil
+
+Pengguna dapat melihat jadwal latihan sesuai hari yang dipilih.
+
+---
+
+# 9. Hak Akses Pengguna
+
+## Member
+
+Hak akses member:
+
+* Login
+* Melihat dashboard
+* Melihat jadwal gym
+* Mengelola profil pribadi
+
+## Admin
+
+Hak akses admin:
+
+* Login Admin
+* Mengelola data member
+* Menambah member
+* Mengubah data member
+* Menghapus data member
+* Mengelola jadwal
+
+---
+
+# 10. Troubleshooting
+
+## Login Gagal
+
+Penyebab:
+
+* Email atau password salah.
+* Akun belum aktif.
+
+Solusi:
+
+* Periksa kembali email dan password.
+* Hubungi administrator.
+
+---
+
+## Data Tidak Tersimpan
+
+Penyebab:
+
+* Koneksi database bermasalah.
+
+Solusi:
+
+* Pastikan MySQL aktif.
+* Periksa konfigurasi database.
+
+---
+
+# 11. Kesimpulan
+
+Gym App menyediakan fitur pengelolaan member gym yang meliputi registrasi, login, pengelolaan data member, dan jadwal latihan. Dokumentasi ini diharapkan dapat membantu pengguna dalam mengoperasikan aplikasi dengan mudah dan benar.
 
